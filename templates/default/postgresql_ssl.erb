@@ -1,0 +1,16 @@
+# SSL Certs go in PG's data directory
+cd <%= node["postgresql"]["data_directory"] %>
+
+# Generate private key
+openssl genrsa -des3 -out server.key -passout pass:<%= node["postgresql"]["ssl_cert_password"]  %> 1024
+# Remove passphrase
+openssl rsa -in server.key -out server.key -passin pass:<%= node["postgresql"]["ssl_cert_password"]  %>
+
+openssl req -new -key server.key -days 3650 -out server.crt -x509 -subj <%= node["postgresql"]["ssl_cert_subj"] %> 
+# Self-signing this so we will need to use this as our root cert as well
+cp server.crt root.crt
+
+#Set permissions on key
+chmod og-rwx server.key
+chown postgres.postgres server.key
+chown postgres.postgres server.crt

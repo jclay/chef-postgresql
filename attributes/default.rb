@@ -58,12 +58,15 @@ end
 # security and authentication
 default["postgresql"]["authentication_timeout"]          = "1min"
 default["postgresql"]["ssl"]                             = true
+#Password used to generated SSL cert
+default["postgresql"]["ssl_cert_password"]               = rand(36**16).to_s(36) # Random password
+default["postgresql"]["ssl_cert_subj"]                   = '/C=US/ST=California/L=Los Angeles/O=ExampleCorp/CN=example.com/emailAddress=admin@example.com'
 default["postgresql"]["ssl_ciphers"]                     = "ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH"
 default["postgresql"]["ssl_renegotiation_limit"]         = "512MB"
 default["postgresql"]["ssl_ca_file"]                     = ""
-default["postgresql"]["ssl_cert_file"]                   = "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+default["postgresql"]["ssl_cert_file"]                   = "#{node["postgresql"]["data_directory"]}/server.crt"
 default["postgresql"]["ssl_crl_file"]                    = ""
-default["postgresql"]["ssl_key_file"]                    = "/etc/ssl/private/ssl-cert-snakeoil.key"
+default["postgresql"]["ssl_key_file"]                    = "#{node["postgresql"]["data_directory"]}/server.key"
 default["postgresql"]["password_encryption"]             = "on"
 default["postgresql"]["db_user_namespace"]               = "off"
 
