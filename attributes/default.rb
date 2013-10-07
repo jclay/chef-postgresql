@@ -60,7 +60,7 @@ default["postgresql"]["authentication_timeout"]          = "1min"
 default["postgresql"]["ssl"]                             = true
 #Password used to generated SSL cert
 default["postgresql"]["ssl_cert_password"]               = rand(36**16).to_s(36) # Random password
-default["postgresql"]["ssl_cert_subj"]                   = '/C=US/ST=California/L=Los Angeles/O=ExampleCorp/CN=example.com/emailAddress=admin@example.com'
+default["postgresql"]["ssl_cert_subj"]                   = "/C=US/ST=California/L=Los Angeles/O=ExampleCorp/CN=example.com/emailAddress=admin@example.com"
 default["postgresql"]["ssl_ciphers"]                     = "ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH"
 default["postgresql"]["ssl_renegotiation_limit"]         = "512MB"
 default["postgresql"]["ssl_ca_file"]                     = ""

@@ -6,7 +6,7 @@ openssl genrsa -des3 -out server.key -passout pass:<%= node["postgresql"]["ssl_c
 # Remove passphrase
 openssl rsa -in server.key -out server.key -passin pass:<%= node["postgresql"]["ssl_cert_password"]  %>
 
-openssl req -new -key server.key -days 3650 -out server.crt -x509 -subj <%= node["postgresql"]["ssl_cert_subj"] %> 
+openssl req -new -key server.key -days 3650 -out server.crt -x509 -subj '<%= node["postgresql"]["ssl_cert_subj"] %>'
 # Self-signing this so we will need to use this as our root cert as well
 cp server.crt root.crt
 
